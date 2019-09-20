@@ -8,10 +8,11 @@ import { Item } from './interfaces/item.interface';
 export class ItemsController {
     constructor(private readonly itemsService: ItemsService) { }
     @Get()
-    findAll(@Req() req: Request, @Res() res: Response): string {
-        return 'Get all items';
+    findAll(@Req() req: Request, @Res() res: Response): Item[] {
+        // return 'Get all items';
         // console.log(req.url);
         // return res.send('Hello World');
+        return this.itemsService.findAll();
     }
 
     @Get(':id')
