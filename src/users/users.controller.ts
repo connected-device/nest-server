@@ -6,12 +6,11 @@ import {
     Delete,
     Body,
     Param,
-    Query
+    Query,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { User } from './interfaces/user.interface';
-
 
 @Controller('users')
 export class UsersController {
@@ -25,7 +24,8 @@ export class UsersController {
 
     @Get('findByUserId')
     findByUserId(@Query() query): Promise<User[]> {
-        return this.usersService.find(query);
+        // return this.usersService.find(query);
+        return this.usersService.findByUserId(query.userId);
     }
 
     @Get(':id')
