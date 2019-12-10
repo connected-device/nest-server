@@ -24,7 +24,6 @@ export class UsersController {
 
     @Get('findByUserId')
     findByUserId(@Query() query): Promise<User[]> {
-        // return this.usersService.find(query);
         return this.usersService.findByUserId(query.userId);
     }
 
