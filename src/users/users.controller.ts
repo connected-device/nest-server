@@ -22,6 +22,11 @@ export class UsersController {
         return this.usersService.findAll();
     }
 
+    // @Get()
+    // findAll(@Query() query): Promise<User[]> {
+    //     return this.usersService.findAll(query.organizationId);
+    // }
+
     @Get('findByUserId')
     findByUserId(@Query() query): Promise<User[]> {
         return this.usersService.findByUserId(query.userId);

@@ -4,4 +4,5 @@ export interface User {
     role?: string;
     userId?: string;
     password?: string;
+    organizationId: string;
 }

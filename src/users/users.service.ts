@@ -17,13 +17,14 @@ export class UsersService {
         return await this.userModel.find();
     }
 
+    // async findAll(organizationId: string): Promise<User[]> {
+    //     return await this.userModel.find({ organizationId });
+    // }
+
     async findOne(id: string): Promise<User> {
         return await this.userModel.findOne({ _id: id });
     }
 
-    // async find(query: object): Promise<User[]> {
-    //     return await this.userModel.find(query);
-    // }
     async findByUserId(userId: string): Promise<User[]> {
         return await this.userModel.find({ userId });
     }

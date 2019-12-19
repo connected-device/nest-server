@@ -4,4 +4,5 @@ export class CreateUserDto {
   readonly group: string;
   readonly userId: string;
   readonly password: string;
+  readonly organizationId: string;
 }
