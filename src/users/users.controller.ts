@@ -17,15 +17,15 @@ export class UsersController {
 
     constructor(private readonly usersService: UsersService) { }
 
-    @Get()
-    findAll(): Promise<User[]> {
-        return this.usersService.findAll();
-    }
-
     // @Get()
-    // findAll(@Query() query): Promise<User[]> {
-    //     return this.usersService.findAll(query.organizationId);
+    // findAll(): Promise<User[]> {
+    //     return this.usersService.findAll();
     // }
+
+    @Get()
+    findAll(@Query() query): Promise<User[]> {
+        return this.usersService.findAll(query.organizationId);
+    }
 
     @Get('findByUserId')
     findByUserId(@Query() query): Promise<User[]> {
