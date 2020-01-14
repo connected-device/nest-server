@@ -1,54 +1,62 @@
 import {
-    Controller,
-    Get,
-    Post,
-    Put,
-    Delete,
-    Body,
-    Param,
-    Query,
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Body,
+  Param,
+  Query,
+  UseGuards,
+  Request,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { User } from './interfaces/user.interface';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
 export class UsersController {
+  constructor(private readonly usersService: UsersService) {}
 
-    constructor(private readonly usersService: UsersService) { }
+  // @UseGuards(AuthGuard('local'))
+  // @Post('auth/login')
+  // async login(@Request() req) {
+  //   return req.user;
+  // }
 
-    // @Get()
-    // findAll(): Promise<User[]> {
-    //     return this.usersService.findAll();
-    // }
+  // @Get()
+  // findAll(): Promise<User[]> {
+  //     return this.usersService.findAll();
+  // }
 
-    @Get()
-    findAll(@Query() query): Promise<User[]> {
-        return this.usersService.findAll(query.organizationId);
-    }
+  @Get()
+  findAll(@Query() query): Promise<User[]> {
+    return this.usersService.findAll(query.organizationId);
+  }
 
-    @Get('findByUserId')
-    findByUserId(@Query() query): Promise<User[]> {
-        return this.usersService.findByUserId(query.userId);
-    }
+  @Get('findByUserId')
+  findByUserId(@Query() query): Promise<User> {
+    return this.usersService.findByUserId(query.userId);
+  }
 
-    @Get(':id')
-    findOne(@Param('id') id): Promise<User> {
-        return this.usersService.findOne(id);
-    }
+  @Get(':id')
+  findOne(@Param('id') id): Promise<User> {
+    return this.usersService.findOne(id);
+  }
 
-    @Post()
-    create(@Body() createUserDto: CreateUserDto): Promise<User> {
-        return this.usersService.create(createUserDto);
-    }
+  @Post()
+  create(@Body() createUserDto: CreateUserDto): Promise<User> {
+    return this.usersService.create(createUserDto);
+  }
 
-    @Delete(':id')
-    delete(@Param('id') id): Promise<User> {
-        return this.usersService.delete(id);
-    }
+  @Delete(':id')
+  delete(@Param('id') id): Promise<User> {
+    return this.usersService.delete(id);
+  }
 
-    @Put(':id')
-    update(@Body() updateUserDto: CreateUserDto, @Param('id') id): Promise<User> {
-        return this.usersService.update(id, updateUserDto);
-    }
+  @Put(':id')
+  update(@Body() updateUserDto: CreateUserDto, @Param('id') id): Promise<User> {
+    return this.usersService.update(id, updateUserDto);
+  }
 }
