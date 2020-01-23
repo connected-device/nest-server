@@ -40,6 +40,10 @@ export class UsersService {
     const newUser = new this.userModel(user);
     return await newUser.save();
   }
+
+  async findAll(organizationId: string): Promise<User[]> {
+    return await this.userModel.find({ organizationId });
+  }
 }
 
 // import { Injectable } from '@nestjs/common';
@@ -55,10 +59,6 @@ export class UsersService {
 //   // async findAll(): Promise<User[]> {
 //   //     return await this.userModel.find();
 //   // }
-
-//   async findAll(organizationId: string): Promise<User[]> {
-//     return await this.userModel.find({ organizationId });
-//   }
 
 //   async findOne(id: string): Promise<User> {
 //     return await this.userModel.findOne({ _id: id });

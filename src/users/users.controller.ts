@@ -4,6 +4,7 @@ import {
   Body,
   Request,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
@@ -37,6 +38,18 @@ export class UsersController {
     console.log('createUserDto', createUserDto);
     return this.usersService.create(createUserDto);
   }
+
+  @Get()
+  findAll(@Query() query): Promise<User[]> {
+    console.log('findAll');
+    return this.usersService.findAll(query.organizationId);
+  }
+
+  //   @Get('findByUserId')
+  //   findByUserId(@Query() query): Promise<User> {
+  //     console.log('findByUserId');
+  //     return this.usersService.findByUserId(query.userId);
+  //   }
 }
 
 // import {
@@ -70,18 +83,6 @@ export class UsersController {
 //   @Get()
 //   findAll(): Promise<User[]> {
 //       return this.usersService.findAll();
-//   }
-
-//   @Get()
-//   findAll(@Query() query): Promise<User[]> {
-//     console.log('findAll');
-//     return this.usersService.findAll(query.organizationId);
-//   }
-
-//   @Get('findByUserId')
-//   findByUserId(@Query() query): Promise<User> {
-//     console.log('findByUserId');
-//     return this.usersService.findByUserId(query.userId);
 //   }
 
 //   @Get(':id')
