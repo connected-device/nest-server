@@ -1,4 +1,6 @@
-export interface Organization {
-    name: string;
-    description: string;
+import { Document } from 'mongoose';
+
+export interface Organization extends Document {
+  name: string;
+  description: string;
 }
