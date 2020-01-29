@@ -44,6 +44,14 @@ export class UsersService {
   async findAll(organizationId: string): Promise<User[]> {
     return await this.userModel.find({ organizationId });
   }
+
+  async delete(id: string): Promise<User> {
+    return await this.userModel.findByIdAndRemove(id);
+  }
+
+  async update(id: string, user: User): Promise<User> {
+    return await this.userModel.findByIdAndUpdate(id, user, { new: true });
+  }
 }
 
 // import { Injectable } from '@nestjs/common';
@@ -77,11 +85,4 @@ export class UsersService {
 //     return await newUser.save();
 //   }
 
-//   async delete(id: string): Promise<User> {
-//     return await this.userModel.findByIdAndRemove(id);
-//   }
-
-//   async update(id: string, user: User): Promise<User> {
-//     return await this.userModel.findByIdAndUpdate(id, user, { new: true });
-//   }
 // }

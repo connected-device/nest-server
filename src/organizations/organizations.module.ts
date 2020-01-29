@@ -12,5 +12,6 @@ import { OrganizationSchema } from './schemas/organization.schema';
   ],
   controllers: [OrganizationsController],
   providers: [OrganizationsService],
+  exports: [OrganizationsService],
 })
 export class OrganizationsModule {}

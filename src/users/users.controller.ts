@@ -1,11 +1,14 @@
 import {
-    Controller,
-    Get,
-    Body,
-    Request,
-    Post,
-    Query,
-    UseGuards,
+  Controller,
+  Get,
+  Body,
+  Request,
+  Post,
+  Delete,
+  Put,
+  Query,
+  Param,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -15,42 +18,52 @@ import { AuthService } from '../auth/auth.service';
 
 @Controller('users')
 export class UsersController {
-    constructor(
-        private readonly usersService: UsersService,
-        private readonly authService: AuthService,
-    ) { }
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly authService: AuthService,
+  ) {}
 
-    @UseGuards(AuthGuard('local'))
-    @Post('auth/login')
-    async login(@Request() req) {
-        // return req.user;
-        console.log('req.user', req.user);
-        return this.authService.login(req.user);
-    }
+  @UseGuards(AuthGuard('local'))
+  @Post('auth/login')
+  async login(@Request() req) {
+    // return req.user;
+    console.log('req.user', req.user);
+    return this.authService.login(req.user);
+  }
 
-    @UseGuards(AuthGuard('jwt'))
-    @Get('profile')
-    getProfile(@Request() req) {
-        return req.user;
-    }
+  @UseGuards(AuthGuard('jwt'))
+  @Get('profile')
+  getProfile(@Request() req) {
+    return req.user;
+  }
 
-    @Post()
-    create(@Body() createUserDto: CreateUserDto): Promise<User> {
-        console.log('createUserDto', createUserDto);
-        return this.usersService.create(createUserDto);
-    }
+  @Post()
+  create(@Body() createUserDto: CreateUserDto): Promise<User> {
+    console.log('createUserDto', createUserDto);
+    return this.usersService.create(createUserDto);
+  }
 
-    @Get()
-    findAll(@Query() query): Promise<User[]> {
-        // console.log('findAll');
-        return this.usersService.findAll(query.organizationId);
-    }
+  @Get()
+  findAll(@Query() query): Promise<User[]> {
+    // console.log('findAll');
+    return this.usersService.findAll(query.organizationId);
+  }
 
-    //   @Get('findByUserId')
-    //   findByUserId(@Query() query): Promise<User> {
-    //     console.log('findByUserId');
-    //     return this.usersService.findByUserId(query.userId);
-    //   }
+  @Delete(':id')
+  delete(@Param('id') id): Promise<User> {
+    return this.usersService.delete(id);
+  }
+
+  @Put(':id')
+  update(@Body() updateUserDto: CreateUserDto, @Param('id') id): Promise<User> {
+    return this.usersService.update(id, updateUserDto);
+  }
+
+  //   @Get('findByUserId')
+  //   findByUserId(@Query() query): Promise<User> {
+  //     console.log('findByUserId');
+  //     return this.usersService.findByUserId(query.userId);
+  //   }
 }
 
 // import {
@@ -96,13 +109,4 @@ export class UsersController {
 //     return this.usersService.create(createUserDto);
 //   }
 
-//   @Delete(':id')
-//   delete(@Param('id') id): Promise<User> {
-//     return this.usersService.delete(id);
-//   }
-
-//   @Put(':id')
-//   update(@Body() updateUserDto: CreateUserDto, @Param('id') id): Promise<User> {
-//     return this.usersService.update(id, updateUserDto);
-//   }
 // }
